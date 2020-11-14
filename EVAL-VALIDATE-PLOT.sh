@@ -23,5 +23,4 @@ cd plot
     rm ${PREFIX}-plot*.png
     rename "s/plot/${PREFIX}-plot/" plot_cer*.png
     rm tmp-plot-*  
-    rm *.csv
 cd ..
