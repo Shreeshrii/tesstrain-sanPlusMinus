@@ -1,0 +1,14 @@
+MODEL_NAME=foo
+LISTNAME=validate
+FASTEVAL_FILES=$(sort $(wildcard data/$(MODEL_NAME)/tessdata_fast/*_[0-1].[0-9]*.traineddata))
+EVALLOG=$(subst tessdata_fast,tessdata_fast,$(patsubst %.traineddata,%.validate.log,$(FASTEVAL_FILES)))
+
+fasteval: $(EVALLOG)
+.PHONY: fasteval
+
+$(EVALLOG): %.validate.log: %.traineddata
+	echo "***** $< ****"
+	OMP_THREAD_LIMIT=1 lstmeval  \
+    --verbosity=0 \
+    --model $< \
+    --eval_listfile data/$(MODEL_NAME)/list.${LISTNAME}    > $@ 2>&1

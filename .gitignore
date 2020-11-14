@@ -1,1 +1,5 @@
-
+data/*/checkpoints
+data/*/checkpoints/*
+data/*/checkpoints/*.*
+data/*/tessdata_best
+data/*/tessdata_fast

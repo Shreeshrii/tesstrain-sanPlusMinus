@@ -18,6 +18,6 @@ mv data/$PREFIX/list.02 data/$PREFIX/list.train
 
 # Use 10 times the count of lstmf files in list.train as MAX_ITERATIONS
 
-nohup make training MODEL_NAME=$PREFIX START_MODEL=san TESSDATA=/home/ubuntu/tessdata_best MAX_ITERATIONS=64530  LANG_TYPE=Indic  DEBUG_INTERVAL=-1  > plot/${PREFIX}.LOG &
+nohup make training MODEL_NAME=$PREFIX START_MODEL=san TESSDATA=/home/ubuntu/tessdata_best MAX_ITERATIONS=64530  LANG_TYPE=Indic  DEBUG_INTERVAL=-1  > plot/$PREFIX.LOG &
 
-
+# nohup make training MODEL_NAME=sanPlusMinus START_MODEL=san TESSDATA=/home/ubuntu/tessdata_best MAX_ITERATIONS=645300  LANG_TYPE=Indic  DEBUG_INTERVAL=-1  >> plot/sanPlusMinus.LOG &
