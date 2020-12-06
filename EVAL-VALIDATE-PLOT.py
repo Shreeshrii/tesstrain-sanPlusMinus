@@ -18,10 +18,10 @@ arg_parser.add_argument('-v', '--validatelist', nargs='?', metavar='VALIDATIONLI
 
 args = arg_parser.parse_args()
 
-csvfile = "plot/" + args.model + "-" + args.validatelist + "-plot_cer.csv"
+tsvfile = "plot/" + args.model + "-" + args.validatelist + "-plot_cer.tsv"
 plotfile = "plot/" + args.model + "-" + args.validatelist + "-plot_cer.png"
 
-dataframe = pd.read_csv(csvfile,sep='\t', encoding='utf-8')
+dataframe = pd.read_csv(tsvfile,sep='\t', encoding='utf-8')
 dataframe['TrainingIteration'] = dataframe['TrainingIteration'].fillna(-2)
 dataframe['TrainingIteration'] = dataframe['TrainingIteration'].astype(int)
 dataframe['TrainingIteration'] = dataframe['TrainingIteration'].astype(str)

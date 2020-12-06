@@ -16,13 +16,13 @@ make -f Makefile-Validate fasteval MODEL_NAME=${MODEL_NAME} VALIDATIONLIST=${VAL
 
 ## PLOT the LOGS
 
-grep 'best model' ${MODEL_LOG} |  sed  -e 's/^.*\///' |  sed  -e 's/\.checkpoint.*$//' | sed  -e 's/_/\t/g' > plot/tmp-${MODEL_NAME}-plot-best.csv
-grep 'Eval Char' ${MODEL_LOG} | sed -e 's/^.*[0-9]At iteration //' | \sed -e 's/,.* Eval Char error rate=/\t\t/'  | sed -e 's/, Word.*$//' | sed -e 's/^/\t\t/'> plot/tmp-${MODEL_NAME}-plot-eval.csv
-grep 'At iteration' ${MODEL_LOG} |  sed -e '/^Sub/d' |  sed -e '/^Update/d' | sed  -e 's/At iteration \([0-9]*\)\/\([0-9]*\)\/.*char train=/\t\t\1\t\2\t\t/' |  sed  -e 's/%, word.*$//'   > plot/tmp-${MODEL_NAME}-plot-iteration.csv
+grep 'best model' ${MODEL_LOG} |  sed  -e 's/^.*\///' |  sed  -e 's/\.checkpoint.*$//' | sed  -e 's/_/\t/g' > plot/tmp-${MODEL_NAME}-plot-best.tsv
+grep 'Eval Char' ${MODEL_LOG} | sed -e 's/^.*[0-9]At iteration //' | \sed -e 's/,.* Eval Char error rate=/\t\t/'  | sed -e 's/, Word.*$//' | sed -e 's/^/\t\t/'> plot/tmp-${MODEL_NAME}-plot-eval.tsv
+grep 'At iteration' ${MODEL_LOG} |  sed -e '/^Sub/d' |  sed -e '/^Update/d' | sed  -e 's/At iteration \([0-9]*\)\/\([0-9]*\)\/.*char train=/\t\t\1\t\2\t\t/' |  sed  -e 's/%, word.*$//'   > plot/tmp-${MODEL_NAME}-plot-iteration.tsv
 egrep "${VALIDATIONLIST}.log$|iteration" ${VALIDATIONLOG} > plot/tmp-${MODEL_NAME}-plot-${MODEL_NAME}-${VALIDATIONLIST}.LOG
-sed 'N;s/\nAt iteration 0, stage 0, /At iteration 0, stage 0, /;P;D'  plot/tmp-${MODEL_NAME}-plot-${MODEL_NAME}-${VALIDATIONLIST}.LOG | grep 'Eval Char' | sed -e "s/.${VALIDATIONLIST}.log.*Eval Char error rate=/\t\t\t/" | sed -e 's/, Word.*$//' | sed  -e 's/\(^.*\)_\([0-9].*\)_\([0-9].*\)_\([0-9].*\)\t/\1\t\2\t\3\t\4\t/g' >  plot/tmp-${MODEL_NAME}-plot-validation.csv
-echo "Name	CheckpointCER	LearningIteration	TrainingIteration	EvalCER	IterationCER	ValidationCER" > plot/tmp-${MODEL_NAME}-plot-header.csv
-cat plot/tmp-${MODEL_NAME}-plot-header.csv  plot/tmp-${MODEL_NAME}-plot-iteration.csv plot/tmp-${MODEL_NAME}-plot-best.csv plot/tmp-${MODEL_NAME}-plot-eval.csv    plot/tmp-${MODEL_NAME}-plot-validation.csv  > plot/${MODEL_NAME}-${VALIDATIONLIST}-plot_cer.csv
+sed 'N;s/\nAt iteration 0, stage 0, /At iteration 0, stage 0, /;P;D'  plot/tmp-${MODEL_NAME}-plot-${MODEL_NAME}-${VALIDATIONLIST}.LOG | grep 'Eval Char' | sed -e "s/.${VALIDATIONLIST}.log.*Eval Char error rate=/\t\t\t/" | sed -e 's/, Word.*$//' | sed  -e 's/\(^.*\)_\([0-9].*\)_\([0-9].*\)_\([0-9].*\)\t/\1\t\2\t\3\t\4\t/g' >  plot/tmp-${MODEL_NAME}-plot-validation.tsv
+echo "Name	CheckpointCER	LearningIteration	TrainingIteration	EvalCER	IterationCER	ValidationCER" > plot/tmp-${MODEL_NAME}-plot-header.tsv
+cat plot/tmp-${MODEL_NAME}-plot-header.tsv  plot/tmp-${MODEL_NAME}-plot-iteration.tsv plot/tmp-${MODEL_NAME}-plot-best.tsv plot/tmp-${MODEL_NAME}-plot-eval.tsv    plot/tmp-${MODEL_NAME}-plot-validation.tsv  > plot/${MODEL_NAME}-${VALIDATIONLIST}-plot_cer.tsv
 
 python EVAL-VALIDATE-PLOT.py -m ${MODEL_NAME} -v ${VALIDATIONLIST}
 

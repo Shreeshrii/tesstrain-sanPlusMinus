@@ -15,10 +15,10 @@ arg_parser.add_argument('-m', '--model', nargs='?',
 
 args = arg_parser.parse_args()
 
-csvfile = "plot/" + args.model + "-plot_cer.csv"
+tsvfile = "plot/" + args.model + "-plot_cer.tsv"
 plotfile = "plot/" + args.model + "-plot_cer.png"
 
-dataframe = pd.read_csv(csvfile,sep='\t', encoding='utf-8')
+dataframe = pd.read_csv(tsvfile,sep='\t', encoding='utf-8')
 
 dataframe['TrainingIteration'] = dataframe['TrainingIteration'].fillna(-2)
 dataframe['TrainingIteration'] = dataframe['TrainingIteration'].astype(int)

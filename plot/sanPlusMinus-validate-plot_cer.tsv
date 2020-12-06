@@ -299,6 +299,40 @@ Name	CheckpointCER	LearningIteration	TrainingIteration	EvalCER	IterationCER	Vali
 		23376	29800		4.897
 		23440	29900		5.025
 		23504	30000		4.851
+		23577	30100		4.889
+		23635	30200		5.052
+		23711	30300		5.16
+		23777	30400		5.213
+		23855	30500		5.371
+		23921	30600		5.322
+		23988	30700		5.398
+		24058	30800		5.641
+		24125	30900		5.672
+		24185	31000		5.683
+		24239	31100		5.692
+		24309	31200		5.655
+		24367	31300		5.444
+		24434	31400		5.422
+		24499	31500		5.304
+		24567	31600		5.373
+		24641	31700		5.447
+		24717	31800		5.338
+		24789	31900		5.186
+		24857	32000		5.141
+		24924	32100		5.08
+		24993	32200		5.038
+		25064	32300		5.061
+		25124	32400		5.006
+		25178	32500		4.896
+		25243	32600		4.904
+		25307	32700		4.786
+		25376	32800		4.756
+		25450	32900		4.797
+		25521	33000		4.855
+		25580	33100		4.892
+		25642	33200		4.906
+		25719	33300		5.008
+		25784	33400		5.086
 sanPlusMinus	59.371	100	100
 sanPlusMinus	46.221	200	200
 sanPlusMinus	38.643	300	300
@@ -333,6 +367,7 @@ sanPlusMinus	5.91	15865	19200
 sanPlusMinus	5.425	18044	22200
 sanPlusMinus	5.193	22073	27900
 sanPlusMinus	4.985	23311	29700
+sanPlusMinus	4.786	25307	32700
 		8813		7.0133874
 		10503		7.0977469
 		11517		6.762363
@@ -344,3 +379,21 @@ sanPlusMinus	4.985	23311	29700
 		17324		6.1211044
 		18044		5.742721
 		19208		6.3473688
+		19844		5.9683806
+		23504		5.8927784
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	4.786	25307	32700			7.0528426
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	4.985	23311	29700			6.6102182
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	5.193	22073	27900			6.836905
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	5.425	18044	22200			6.6659165
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	5.91	15865	19200			6.9538929
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	6.236	14463	17300			6.8723418
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	6.508	12741	15000			7.6643838
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	6.83	10184	11700			8.2307366
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	7.217	9870	11300			7.4463728
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	7.472	7745	8700			8.1555038
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	7.746	6588	7300			8.6326812
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	8.015	6170	6800			8.3595493
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	8.477	5998	6600			8.8196869
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	8.824	4699	5100			9.3595662
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	9.322	4190	4500			9.3905436
+Filename : data/sanPlusMinus/tessdata_fast/sanPlusMinus	9.853	3920	4200			9.4372473
