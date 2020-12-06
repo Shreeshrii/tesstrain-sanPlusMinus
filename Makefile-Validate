@@ -1,14 +1,22 @@
 MODEL_NAME=foo
-LISTNAME=validate
-FASTEVAL_FILES=$(sort $(wildcard data/$(MODEL_NAME)/tessdata_fast/*_[0-1].[0-9]*.traineddata))
-EVALLOG=$(subst tessdata_fast,tessdata_fast,$(patsubst %.traineddata,%.validate.log,$(FASTEVAL_FILES)))
+VALIDATIONLIST=eval
+VALIDATIONLOG=plot/$(MODEL_NAME)-fast$(VALIDATIONLIST).log
+MAXCER=1
 
-fasteval: $(EVALLOG)
-.PHONY: fasteval
+FASTEVAL_FILES=$(sort $(wildcard data/$(MODEL_NAME)/tessdata_fast/*_[0-$(MAXCER)].[0-9]*.traineddata))
+VALIDATIONLOG_FILES=$(subst tessdata_fast,tessdata_fast,$(patsubst %.traineddata,%.$(VALIDATIONLIST).log,$(FASTEVAL_FILES)))
 
-$(EVALLOG): %.validate.log: %.traineddata
+fasteval: $(VALIDATIONLOG)
+.PHONY: fasteval $(VALIDATIONLOG)
+
+$(VALIDATIONLOG): $(VALIDATIONLOG_FILES)
+	for i in $^; do \
+		echo Filename : "$$i";echo;cat "$$i"; \
+	done > $@
+ 
+$(VALIDATIONLOG_FILES): %.$(VALIDATIONLIST).log: %.traineddata
 	echo "***** $< ****"
 	OMP_THREAD_LIMIT=1 lstmeval  \
     --verbosity=0 \
     --model $< \
-    --eval_listfile data/$(MODEL_NAME)/list.${LISTNAME}    > $@ 2>&1
+    --eval_listfile data/$(MODEL_NAME)/list.${VALIDATIONLIST}    > $@ 2>&1

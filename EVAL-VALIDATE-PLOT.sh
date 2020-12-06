@@ -1,26 +1,29 @@
-MODEL=sanPlusMinus
-TYPE=
-PREFIX=${MODEL}${TYPE}
-LISTNAME=validate
+#!/bin/bash
+## bash -x EVAL-VALIDATE-PLOT.sh validate
+## Do not run validate on list.eval, since that is already reflected in MODEL_LOG.
+
+MODEL_NAME=sanPlusMinus
+VALIDATIONLIST=$1
+MAXCER=9 # MAXCER should be between 0-9 - will select checkpoints till MAXCER.9*
+VALIDATIONLOG=plot/${MODEL_NAME}-fast${VALIDATIONLIST}.log
+MODEL_LOG=plot/${MODEL_NAME}.LOG
 
 ## make all traineddata files
-make traineddata MODEL_NAME=${MODEL}  
-## run eval against validate list with the best CER models (%range as in Makefile-Eval)
-make -f Makefile-Validate fasteval MODEL_NAME=${MODEL} LISTNAME=${LISTNAME}
-## Add name to Validation log file
-find data/${MODEL}/tessdata_fast/ -type f -name "*.validate.log" | sort -n | xargs -I % bash -c "echo ''; echo '----------------------'; echo %; echo '----------------------'; cat %; echo '';" >plot/plot-${MODEL}-fastvalidate.LOG
+make traineddata MODEL_NAME=${MODEL_NAME}  
+
+## run eval against validate list with the best CER models (%range as in Makefile-Validate)
+make -f Makefile-Validate fasteval MODEL_NAME=${MODEL_NAME} VALIDATIONLIST=${VALIDATIONLIST} MAXCER=${MAXCER}
 
 ## PLOT the LOGS
-cd plot
-    echo "Name	CheckpointCER	LearningIteration	TrainingIteration	EvalCER	IterationCER	ValidationCER" > tmp-plot-header.csv
-    grep 'best model' ${PREFIX}.LOG |  sed  -e 's/^.*\///' |  sed  -e 's/\.checkpoint.*$//' | sed  -e 's/_/\t/g' > tmp-plot-best.csv
-    grep 'Eval Char' ${PREFIX}.LOG | sed -e 's/^.*[0-9]At iteration //' | \sed -e 's/,.* Eval Char error rate=/\t\t/'  | sed -e 's/, Word.*$//' | sed -e 's/^/\t\t/'> tmp-plot-eval.csv
-    grep 'At iteration' ${PREFIX}.LOG |  sed -e '/^Sub/d' |  sed -e '/^Update/d' | sed  -e 's/At iteration \([0-9]*\)\/\([0-9]*\)\/.*char train=/\t\t\1\t\2\t\t/' |  sed  -e 's/%, word.*$//'   > tmp-plot-iteration.csv
-    egrep "validate.log$|iteration" plot-${MODEL}-fastvalidate.LOG > tmp-plot-${PREFIX}-validate.LOG
-    sed 'N;s/\nAt iteration 0, stage 0, /At iteration 0, stage 0, /;P;D'  tmp-plot-${PREFIX}-validate.LOG | grep 'Eval Char' | sed -e 's/.validate.log.*Eval Char error rate=/\t\t\t/' | sed -e 's/, Word.*$//' | sed  -e 's/\(^.*\)_\([0-9].*\)_\([0-9].*\)_\([0-9].*\)\t/\1\t\2\t\3\t\4\t/g' >  tmp-plot-validation.csv
-    cat tmp-plot-header.csv  tmp-plot-iteration.csv tmp-plot-best.csv tmp-plot-eval.csv    tmp-plot-validation.csv  > plot_cer.csv
-    python plot_cer.py
-    rm ${PREFIX}-plot*.png
-    rename "s/plot/${PREFIX}-plot/" plot_cer*.png
-    rm tmp-plot-*  
-cd ..
+
+grep 'best model' ${MODEL_LOG} |  sed  -e 's/^.*\///' |  sed  -e 's/\.checkpoint.*$//' | sed  -e 's/_/\t/g' > plot/tmp-${MODEL_NAME}-plot-best.csv
+grep 'Eval Char' ${MODEL_LOG} | sed -e 's/^.*[0-9]At iteration //' | \sed -e 's/,.* Eval Char error rate=/\t\t/'  | sed -e 's/, Word.*$//' | sed -e 's/^/\t\t/'> plot/tmp-${MODEL_NAME}-plot-eval.csv
+grep 'At iteration' ${MODEL_LOG} |  sed -e '/^Sub/d' |  sed -e '/^Update/d' | sed  -e 's/At iteration \([0-9]*\)\/\([0-9]*\)\/.*char train=/\t\t\1\t\2\t\t/' |  sed  -e 's/%, word.*$//'   > plot/tmp-${MODEL_NAME}-plot-iteration.csv
+egrep "${VALIDATIONLIST}.log$|iteration" ${VALIDATIONLOG} > plot/tmp-${MODEL_NAME}-plot-${MODEL_NAME}-${VALIDATIONLIST}.LOG
+sed 'N;s/\nAt iteration 0, stage 0, /At iteration 0, stage 0, /;P;D'  plot/tmp-${MODEL_NAME}-plot-${MODEL_NAME}-${VALIDATIONLIST}.LOG | grep 'Eval Char' | sed -e "s/.${VALIDATIONLIST}.log.*Eval Char error rate=/\t\t\t/" | sed -e 's/, Word.*$//' | sed  -e 's/\(^.*\)_\([0-9].*\)_\([0-9].*\)_\([0-9].*\)\t/\1\t\2\t\3\t\4\t/g' >  plot/tmp-${MODEL_NAME}-plot-validation.csv
+echo "Name	CheckpointCER	LearningIteration	TrainingIteration	EvalCER	IterationCER	ValidationCER" > plot/tmp-${MODEL_NAME}-plot-header.csv
+cat plot/tmp-${MODEL_NAME}-plot-header.csv  plot/tmp-${MODEL_NAME}-plot-iteration.csv plot/tmp-${MODEL_NAME}-plot-best.csv plot/tmp-${MODEL_NAME}-plot-eval.csv    plot/tmp-${MODEL_NAME}-plot-validation.csv  > plot/${MODEL_NAME}-${VALIDATIONLIST}-plot_cer.csv
+
+python EVAL-VALIDATE-PLOT.py -m ${MODEL_NAME} -v ${VALIDATIONLIST}
+
+rm plot/tmp-${MODEL_NAME}-plot-*  
