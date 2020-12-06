@@ -66,7 +66,7 @@ LEARNING_RATE := 0.002
 endif
 
 # Network specification. Default: $(NET_SPEC)
-NET_SPEC := [1,36,0,1 Ct3,3,16 Mp3,3 Lfys48 Lfx96 Lrx96 Lfx256 O1c\#\#\#]
+NET_SPEC := [1,36,0,1 Ct3,3,16 Mp3,3 Lfys48 Lfx96 Lrx96 Lfx192 O1c\#\#\#]
 
 # Language Type - Indic, RTL or blank. Default: '$(LANG_TYPE)'
 LANG_TYPE ?=
@@ -93,7 +93,7 @@ TRAIN_TYPE ?=
 
 # Replace top layer of network OR plus_minus training
 ifeq ($(TRAIN_TYPE),Layer)
-	START_MODEL_TRAIN_STRING =--append_index 5 --net_spec '[Lfx256O1c1]'
+	START_MODEL_TRAIN_STRING =--append_index 5 --net_spec '[Lfx192O1c1]'
 else
 	START_MODEL_TRAIN_STRING =--old_traineddata $(TESSDATA)/$(START_MODEL).traineddata
 endif
@@ -169,21 +169,25 @@ ALL_LSTMF = $(OUTPUT_DIR)/all-lstmf
 unicharset: $(OUTPUT_DIR)/unicharset
 
 # Create lists of lstmf filenames for training and eval
-lists: $(OUTPUT_DIR)/list.train $(OUTPUT_DIR)/list.eval
+lists: $(OUTPUT_DIR)/list.train $(OUTPUT_DIR)/list.eval $(OUTPUT_DIR)/list.validate
 
 $(OUTPUT_DIR)/list.eval \
+$(OUTPUT_DIR)/list.validate \
 $(OUTPUT_DIR)/list.train: $(ALL_LSTMF)
 	@mkdir -p $(OUTPUT_DIR)
 	@total=$$(wc -l < $(ALL_LSTMF)); \
 	  train=$$(echo "$$total * $(RATIO_TRAIN) / 1" | bc); \
 	  test "$$train" = "0" && \
 	    echo "Error: missing ground truth for training" && exit 1; \
-	  eval=$$(echo "$$total - $$train" | bc); \
-	  test "$$eval" = "0" && \
+	  notrain=$$(echo "$$total - $$train" | bc); \
+	  test "$$notrain" = "0" && \
 	    echo "Error: missing ground truth for evaluation" && exit 1; \
+	  eval=$$(echo "$$notrain / 2" | bc); \
 	  set -x; \
 	  head -n "$$train" $(ALL_LSTMF) > "$(OUTPUT_DIR)/list.train"; \
-	  tail -n "$$eval" $(ALL_LSTMF) > "$(OUTPUT_DIR)/list.eval"
+	  tail -n "$$notrain" $(ALL_LSTMF) > "$(OUTPUT_DIR)/list.notrain"; \
+	  head -n "$$eval" "$(OUTPUT_DIR)/list.notrain" > "$(OUTPUT_DIR)/list.eval"; \
+	  tail -n "$$eval" "$(OUTPUT_DIR)/list.notrain" > "$(OUTPUT_DIR)/list.validate"														
 
 ifdef START_MODEL
 $(OUTPUT_DIR)/unicharset: $(ALL_GT)
