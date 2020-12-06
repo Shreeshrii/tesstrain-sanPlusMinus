@@ -31,13 +31,13 @@ y = dataframe.IterationCER
 c = dataframe.CheckpointCER
 e = dataframe.EvalCER
 
-maxxlimit=500000 # Use fixed value not auto, so that plots made anytime during training have same scale
+maxxlimit=100000 # Use fixed value not auto, so that plots made anytime during training have same scale
 minxlimit=None
 maxticks=10
 ymax = y[np.argmax(y)] # Use to limit y axis to Max IterationCER
 cmax = c[np.argmax(c)] # Use to limit y axis to Max CheckpointCER
-maxCERtoDisplay=cmax # Use ymax/cmax, for more detail use 20 or lower
-minCERtoDisplay=-5 # Use -5 with ymax/cmax, -1 with 20 or lower
+maxCERtoDisplay=20 # Use ymax/cmax, for more detail use 20 or lower
+minCERtoDisplay=-1 # Use -5 with ymax/cmax, -1 with 20 or lower
 
 def annot_min(boxcolor, xpos, ypos, x,y):
     xmin = x[np.argmin(y)]
@@ -63,13 +63,10 @@ ax1.tick_params(axis='x', rotation=45, labelsize='small')
 ax1.locator_params(axis='x', nbins=maxticks)  # limit ticks on x-axis
 ax1.grid(True)
 
+ax1.plot(x, y, 'teal', linewidth=0.7, label='CER every 100 Training Iterations')
 if not c.dropna().empty: # not NaN or empty
-	ax1.scatter(x, c, c='gold', s=10, label='Best Model Checkpoints CER')
-	ax1.plot(x, c, 'gold')
-	annot_min('gold',-0,-30,x,c)
-
-ax1.scatter(x, y, s=0.1, c='teal', label='CER every 100 Training Iterations')
-ax1.plot(x, y, 'teal', linewidth=0.7)
+	ax1.scatter(x, c, c='teal', s=10, label='Best Model Checkpoints CER')
+	annot_min('teal',-0,-30,x,c)
 
 if not e.dropna().empty: # not NaN or empty
 	ax1.plot(x, e, 'magenta')
