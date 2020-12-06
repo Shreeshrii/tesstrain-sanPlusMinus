@@ -5,3 +5,4 @@ plot/*.LOG
 GT*
 data/*-ground-truth/*/*.lstmf
 data/*-ground-truth/*/*.box
+del.sh
