@@ -34,8 +34,8 @@ c = dataframe.CheckpointCER
 e = dataframe.EvalCER
 v = dataframe.ValidationCER
 
-maxxlimit=100000 # Use fixed value not auto, so that plots made anytime during training have same scale
-minxlimit=None
+maxxlimit=300000 # Use fixed value not auto, so that plots made anytime during training have same scale
+minxlimit=-10000
 maxticks=10
 ymax = y[np.argmax(y)] # Use to limit y axis to Max IterationCER
 cmax = c[np.argmax(c)] # Use to limit y axis to Max CheckpointCER
@@ -68,7 +68,7 @@ ax1.grid(True)
 
 ax1.plot(x, y, 'teal', alpha=0.5, label='CER every 100 Training Iterations')
 if not c.dropna().empty: # not NaN or empty
-	ax1.scatter(x, c, c='teal', s=10, label='Best Model Checkpoints CER', alpha=0.5)
+	ax1.scatter(x, c, c='teal', s=10, label='Checkpoints CER', alpha=0.5)
 	annot_min('teal',-0,-30,x,c)
 
 if not e.dropna().empty: # not NaN or empty
@@ -78,7 +78,7 @@ if not e.dropna().empty: # not NaN or empty
 
 if not v.dropna().empty: # not NaN or empty
 	ax1.plot(x, v, 'maroon', alpha=0.5)
-	ax1.scatter(x, v, c='maroon', s=10, label='Validation CER from lstmeval ('  + args.validatelist + ')', alpha=0.5)
+	ax1.scatter(x, v, c='maroon', s=10, label='Validation CER from lstmeval (list.'  + args.validatelist + ')', alpha=0.5)
 	annot_min('maroon',-0,30,x,v)
 
 plt.title(label=PlotTitle)
