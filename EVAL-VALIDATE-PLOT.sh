@@ -1,9 +1,9 @@
 #!/bin/bash
-## bash -x EVAL-VALIDATE-PLOT.sh validate
+## bash -x EVAL-VALIDATE-PLOT.sh
 ## Do not run validate on list.eval, since that is already reflected in MODEL_LOG.
 
 MODEL_NAME=sanPlusMinus
-VALIDATIONLIST=$1
+VALIDATIONLIST=validate
 MAXCER=9 # MAXCER should be between 0-9 - will select checkpoints till MAXCER.9*
 VALIDATIONLOG=plot/${MODEL_NAME}-fast${VALIDATIONLIST}.log
 MODEL_LOG=plot/${MODEL_NAME}.LOG

@@ -1,6 +1,6 @@
 # tesstrain-sanPlusMinus
 
-This uses a custom version of [tesstrain](https://github.com/tesseract-ocr/tesstrain) repo for Demo of PlusMinus training for Sanskrit using `san` as the START_MODEL. The [ground-truth data](data/sanPlusMinus-ground-truth) is included as part of this repo. 
+This uses a custom version of [tesstrain](https://github.com/tesseract-ocr/tesstrain) repo for Demo of PlusMinus training for Sanskrit using `[san](https://github.com/tesseract-ocr/tessdata_best/blob/master/san.traineddata)` as the START_MODEL. The [ground-truth data](data/sanPlusMinus-ground-truth) is included as part of this repo. 
 
 The training is currently ongoing.
 
@@ -157,3 +157,31 @@ One of the changes is addition of a plot to visualize the CER from training iter
 ### CER from lstmtraining log and lstmeval logs: 
 
 ![Sanskrit PlusMinus Training Validation CER Plot](/plot/sanPlusMinus-validate-plot_cer.png)
+
+## To run training on your system
+
+To reproduce above results and run training on your system, you need a latest working version of tesseract (5.0.0.Alpha or higher). For plotting you need python3, matplotlib, pandas, numpy.
+
+```
+git clone --depth 1 https://github.com/Shreeshrii/tesstrain-sanPlusMinus
+cd tesstrain-sanPlusMinus
+bash TRAIN.sh
+```
+
+## To create CER plots
+
+For plotting you need python3, matplotlib, pandas, numpy and other dependencies. Run the following to create the tsv files with CER information and the plots.
+
+```
+cd tesstrain-sanPlusMinus
+bash PLOT_CER.sh
+bash EVAL-VALIDATE-PLOT.sh
+```
+
+At times, you may want to adjust the x and y axis limits on the plots for clarity. In that case you need not create the tsv files again and can just rerun the python scripts after modifying them.
+
+```
+cd tesstrain-sanPlusMinus
+python PLOT_CER.py
+python EVAL-VALIDATE-PLOT.py -m sanPlusMinus -v validate
+```

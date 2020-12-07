@@ -1,3 +1,9 @@
+#!/bin/bash
+
+MODEL_NAME=sanPlusMinus
+
+#Change the settings so that lstmtraining does not CRASH
+
 echo "---------------------------------------------------"
 ## to get a core dump - will be in tesseract subdirectory
 ulimit -c unlimited
@@ -16,4 +22,6 @@ echo "---------------------------------------------------"
 ulimit -a
 echo "---------------------------------------------------"
 
-nohup make training MODEL_NAME=sanPlusMinus START_MODEL=san TESSDATA=/home/ubuntu/tessdata_best MAX_ITERATIONS=9999999  LANG_TYPE=Indic  DEBUG_INTERVAL=-1  > plot/sanPlusMinus.LOG &
+## plot/${MODEL_NAME}.LOG is used for plotting of CER. Do NOT change its name.
+
+nohup make training MODEL_NAME=${MODEL_NAME} START_MODEL=san TESSDATA=data MAX_ITERATIONS=9999999  LANG_TYPE=Indic  DEBUG_INTERVAL=-1  > plot/${MODEL_NAME}.LOG &
