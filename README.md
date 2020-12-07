@@ -146,12 +146,12 @@ The following table shows the [character counts](data/sanPlusMinus/all-gt-charco
 
 One of the changes is addition of a plot to visualize the CER from training iterations, checkpoints, evaluation test and validation test. 
 
-Sample generated from lstmtraing log: 
+Sample generated from lstmtraining log: 
 
 
 ![Sanskrit PlusMinus Training CER Plot](/plot/sanPlusMinus-plot_cer.png)
 
-Sample generated from lstmtraing log and lstmeval logs: 
+Sample generated from lstmtraining log and lstmeval logs: 
 
 
 ![Sanskrit PlusMinus Training Validation CER Plot](/plot/sanPlusMinus-validate-plot_cer.png)
