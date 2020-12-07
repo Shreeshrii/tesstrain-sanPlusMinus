@@ -1,10 +1,12 @@
 # tesstrain-sanPlusMinus
 
-This uses a custom version of [tesstrain](https://github.com/tesseract-ocr/tesstrain) repo for Demo of PlusMinus training for Sanskrit using `san` as the START_MODEL. 
+This uses a custom version of [tesstrain](https://github.com/tesseract-ocr/tesstrain) repo for Demo of PlusMinus training for Sanskrit using `san` as the START_MODEL. The [ground-truth data](data/sanPlusMinus-ground-truth) is included as part of this repo. 
 
-The ground-truth data is included as part of this repo. 
+The training is currently ongoing.
 
-The following table shows the [character counts](data/sanPlusMinus/all-gt-charcount) in `all-gt` training text. Obviously, all the characters with a low frequency will not be recognized s well as others.
+## Characters included in groundtruth
+
+The following table shows the [character counts](data/sanPlusMinus/all-gt-charcount) in `all-gt` training text. Obviously, all the characters with a low frequency will not be recognized as well as others.
 
 ```
 110908 	   SPACE
@@ -144,14 +146,14 @@ The following table shows the [character counts](data/sanPlusMinus/all-gt-charco
 11 	 ॅ DEVANAGARI VOWEL SIGN CANDRA E
 ```
 
+## Plotting of Character Error Rates
+
 One of the changes is addition of a plot to visualize the CER from training iterations, checkpoints, evaluation test and validation test. 
 
-Sample generated from lstmtraining log: 
-
+### CER from lstmtraining log: 
 
 ![Sanskrit PlusMinus Training CER Plot](/plot/sanPlusMinus-plot_cer.png)
 
-Sample generated from lstmtraining log and lstmeval logs: 
-
+### CER from lstmtraining log and lstmeval logs: 
 
 ![Sanskrit PlusMinus Training Validation CER Plot](/plot/sanPlusMinus-validate-plot_cer.png)
