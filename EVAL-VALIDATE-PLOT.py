@@ -39,7 +39,7 @@ minxlimit=-10000
 maxticks=10
 ymax = y[np.argmax(y)] # Use to limit y axis to Max IterationCER
 cmax = c[np.argmax(c)] # Use to limit y axis to Max CheckpointCER
-maxCERtoDisplay=20 # Use ymax/cmax, for more detail use 20 or lower
+maxCERtoDisplay=12 # Use ymax/cmax, for more detail use 20 or lower
 minCERtoDisplay=-1 # Use -5 with ymax/cmax, -1 with 20 or lower
 
 def annot_min(boxcolor, xpos, ypos, x,y):

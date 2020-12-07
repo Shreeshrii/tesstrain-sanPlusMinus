@@ -1,6 +1,6 @@
 # tesstrain-sanPlusMinus
 
-This uses a custom version of [tesstrain](https://github.com/tesseract-ocr/tesstrain) repo for Demo of PlusMinus training for Sanskrit using `[san](https://github.com/tesseract-ocr/tessdata_best/blob/master/san.traineddata)` as the START_MODEL. The [ground-truth data](data/sanPlusMinus-ground-truth) is included as part of this repo. 
+This uses a custom version of [tesstrain](https://github.com/tesseract-ocr/tesstrain) repo for Demo of PlusMinus training for Sanskrit using [san](https://github.com/tesseract-ocr/tessdata_best/blob/master/san.traineddata) as the START_MODEL. The [ground-truth data](data/sanPlusMinus-ground-truth) is included as part of this repo. 
 
 The training is currently ongoing.
 
@@ -148,7 +148,7 @@ The following table shows the [character counts](data/sanPlusMinus/all-gt-charco
 
 ## Plotting of Character Error Rates
 
-One of the changes is addition of a plot to visualize the CER from training iterations, checkpoints, evaluation test and validation test. 
+MatPlotLib can be used to visualize the CER from training iterations, checkpoints, evaluation test and validation test. 
 
 ### CER from lstmtraining log: 
 
@@ -160,7 +160,7 @@ One of the changes is addition of a plot to visualize the CER from training iter
 
 ## To run training on your system
 
-To reproduce above results and run training on your system, you need a latest working version of tesseract (5.0.0.Alpha or higher). For plotting you need python3, matplotlib, pandas, numpy.
+To reproduce above results and run training on your system, you need a latest working version of `tesseract` (use master branch from github for 5.0.0.Alpha or higher). Training to achieve a low CER will take at least a few days. Be patient.
 
 ```
 git clone --depth 1 https://github.com/Shreeshrii/tesstrain-sanPlusMinus
@@ -168,17 +168,24 @@ cd tesstrain-sanPlusMinus
 bash TRAIN.sh
 ```
 
+## To check progress of training (on Linux or WSL)
+
+```
+cd tesstrain-sanPlusMinus
+tail -f plot/sanPlusMinus.LOG
+```
+
 ## To create CER plots
 
-For plotting you need python3, matplotlib, pandas, numpy and other dependencies. Run the following to create the tsv files with CER information and the plots.
+For plotting you need `python3`, `matplotlib`, `pandas`, `numpy` and other dependencies. Run the following to create the `tsv` files with CER information and the plots. You can run these while the training is running. Preferably, run these after a few hours after starting training so that there is some data to be displayed. Generation of `tsv` data for validation can take a while, specially as training progresses. Be patient.
 
 ```
 cd tesstrain-sanPlusMinus
 bash PLOT_CER.sh
-bash EVAL-VALIDATE-PLOT.sh
+bash -x EVAL-VALIDATE-PLOT.sh
 ```
 
-At times, you may want to adjust the x and y axis limits on the plots for clarity. In that case you need not create the tsv files again and can just rerun the python scripts after modifying them.
+At times, you may want to adjust the x and y axis limits on the plots to improve the visual representation. In that case you need not create the tsv files again. Just rerun the python scripts after modifying the required values.
 
 ```
 cd tesstrain-sanPlusMinus

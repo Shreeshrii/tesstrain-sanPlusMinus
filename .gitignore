@@ -1,8 +1,9 @@
+GT*
+data/*-ground-truth/*/*.box
+data/*-ground-truth/*/*.lstmf
 data/*/checkpoints
 data/*/tessdata_best
 data/*/tessdata_fast
-plot/*.LOG
-GT*
-data/*-ground-truth/*/*.lstmf
-data/*-ground-truth/*/*.box
 del.sh
+plot/*.LOG
+plot/*.log
