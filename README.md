@@ -1,6 +1,6 @@
 # tesstrain-sanPlusMinus
 
-This uses a custom version of [tesstrain](https://github.com/tesseract-ocr/tesstrain) repo for Demo of PlusMinus training for Sanskrit using [san](https://github.com/tesseract-ocr/tessdata_best/blob/master/san.traineddata) as the START_MODEL. The [ground-truth data](data/sanPlusMinus-ground-truth) is included as part of this repo. 
+This uses a custom version of [tesstrain](https://github.com/tesseract-ocr/tesstrain) repo for demonstration of PlusMinus training for Sanskrit, in Devanagari script only, using [tessdata_best/san](https://github.com/tesseract-ocr/tessdata_best/blob/master/san.traineddata) as the START_MODEL. The [ground-truth data](data/sanPlusMinus-ground-truth) is included as part of this repo. 
 
 The training is currently ongoing.
 
@@ -168,7 +168,7 @@ cd tesstrain-sanPlusMinus
 bash TRAIN.sh
 ```
 
-## To check progress of training (on Linux or WSL)
+## To check progress of training
 
 ```
 cd tesstrain-sanPlusMinus
@@ -199,7 +199,7 @@ If the training, eval and validation sets are similar in nature, the minimum CER
 
 ### Sample Plots
 
-See the following plots which display different results for validation sets. These are taken from a different training set.
+See the following plots which display different results for different validation sets. These are taken from a different training set for Sanskrit.
 
 #### Scanned Images
 

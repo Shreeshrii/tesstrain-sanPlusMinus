@@ -7,3 +7,4 @@ data/*/tessdata_fast
 del.sh
 plot/*.LOG
 plot/*.log
+*.log
