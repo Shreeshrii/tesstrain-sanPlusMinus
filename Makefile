@@ -187,7 +187,7 @@ $(OUTPUT_DIR)/list.train: $(ALL_LSTMF)
 	  head -n "$$train" $(ALL_LSTMF) > "$(OUTPUT_DIR)/list.train"; \
 	  tail -n "$$notrain" $(ALL_LSTMF) > "$(OUTPUT_DIR)/list.notrain"; \
 	  head -n "$$eval" "$(OUTPUT_DIR)/list.notrain" > "$(OUTPUT_DIR)/list.eval"; \
-	  tail -n "$$eval" "$(OUTPUT_DIR)/list.notrain" > "$(OUTPUT_DIR)/list.validate"														
+	  tail -n "$$eval" "$(OUTPUT_DIR)/list.notrain" > "$(OUTPUT_DIR)/list.validate"
 
 ifdef START_MODEL
 $(OUTPUT_DIR)/unicharset: $(ALL_GT)
