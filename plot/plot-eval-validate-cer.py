@@ -13,8 +13,8 @@ arg_parser = argparse.ArgumentParser(
 arg_parser.add_argument('-m', '--model', nargs='?',
                         metavar='MODEL_NAME', help='Model Name', required=True)
 
-arg_parser.add_argument('-v', '--validatelist', nargs='?', metavar='VALIDATIONLIST',
-                        help='Validation List', required=True)
+arg_parser.add_argument('-v', '--validatelist', nargs='?', metavar='VALIDATELIST',
+                        help='Validate List Suffix', required=True)
 
 args = arg_parser.parse_args()
 
@@ -34,12 +34,20 @@ c = dataframe.CheckpointCER
 e = dataframe.EvalCER
 v = dataframe.ValidationCER
 
-maxxlimit=300000 # Use fixed value not auto, so that plots made anytime during training have same scale
-minxlimit=-10000
+trainlistfile = "../data/" + args.model + "/list.train"
+evalistfile = "../data/" + args.model + "/list.eval"
+validatelistfile = "../data/" + args.model + "/list." + args.validatelist
+
+trainlistlinecount = len(open(trainlistfile).readlines(  ))
+evallistlinecount = len(open(evalistfile).readlines(  ))
+validatelistlinecount = len(open(validatelistfile).readlines(  ))
+
+maxxlimit=250000 # Use fixed value not auto, so that plots made anytime during training have same scale
+minxlimit=-100
 maxticks=10
 ymax = y[np.argmax(y)] # Use to limit y axis to Max IterationCER
 cmax = c[np.argmax(c)] # Use to limit y axis to Max CheckpointCER
-maxCERtoDisplay=12 # Use ymax/cmax, for more detail use 20 or lower
+maxCERtoDisplay=8 # Use ymax/cmax, for more detail use 20 or lower
 minCERtoDisplay=-1 # Use -5 with ymax/cmax, -1 with 20 or lower
 
 def annot_min(boxcolor, xpos, ypos, x,y):
@@ -66,19 +74,19 @@ ax1.tick_params(axis='x', rotation=45, labelsize='small')
 ax1.locator_params(axis='x', nbins=maxticks)  # limit ticks on x-axis
 ax1.grid(True)
 
-ax1.plot(x, y, 'teal', alpha=0.5, label='CER every 100 Training Iterations')
+ax1.plot(x, y, 'teal', alpha=0.5, label='CER every 100 Training Iterations', linewidth=0.5)
 if not c.dropna().empty: # not NaN or empty
-	ax1.scatter(x, c, c='teal', s=10, label='Checkpoints CER', alpha=0.5)
+	ax1.scatter(x, c, c='teal', s=10, label='Checkpoints CER  from lstmtraining (list.train - ' + str(trainlistlinecount) +' lines)', alpha=0.5)
 	annot_min('teal',-0,-30,x,c)
 
 if not e.dropna().empty: # not NaN or empty
 	ax1.plot(x, e, 'magenta', alpha=0.5)
-	ax1.scatter(x, e, c='magenta', s=10, label='Evaluation CER from lstmtraining (list.eval)', alpha=0.5)
+	ax1.scatter(x, e, c='magenta', s=10, label='Evaluation CER from lstmtraining (list.eval - ' + str(evallistlinecount) +' lines)', alpha=0.5)
 	annot_min('magenta',-0,30,x,e)
 
 if not v.dropna().empty: # not NaN or empty
 	ax1.plot(x, v, 'maroon', alpha=0.5)
-	ax1.scatter(x, v, c='maroon', s=10, label='Validation CER from lstmeval (list.'  + args.validatelist + ')', alpha=0.5)
+	ax1.scatter(x, v, c='maroon', s=10, label='Validation CER from lstmeval (list.'  + args.validatelist + ' - ' + str(validatelistlinecount) +' lines)', alpha=0.5)
 	annot_min('maroon',-0,30,x,v)
 
 plt.title(label=PlotTitle)

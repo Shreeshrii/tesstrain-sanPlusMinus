@@ -87,7 +87,7 @@ plotcer: $(TSV_CER)
 $(TSV_CER): $(TMP_HEADER) $(TMP_100_ITERATIONS) $(TMP_CHECKPOINT) $(TMP_EVAL)
 	cat $(TMP_HEADER) $(TMP_100_ITERATIONS) $(TMP_CHECKPOINT) $(TMP_EVAL)  > "$@"
 	rm $(TMP_HEADER) $(TMP_100_ITERATIONS) $(TMP_CHECKPOINT) $(TMP_EVAL)
-	python plot-eval-cer.py -m $(MODEL_NAME)
+#	python plot-eval-cer.py -m $(MODEL_NAME)
 
 # Make TSV header with all column headings.
 $(TMP_HEADER):

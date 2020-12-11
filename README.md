@@ -180,17 +180,16 @@ tail -f plot/sanPlusMinus.LOG
 For plotting you need `python3`, `matplotlib`, `pandas`, `numpy` and other dependencies. Run the following to create the `tsv` files with CER information and the plots. You can run these while the training is running. Preferably, run these after a few hours after starting training so that there is some data to be displayed. Generation of `tsv` data for validation can take a while, specially as training progresses. Be patient.
 
 ```
-cd tesstrain-sanPlusMinus
-bash PLOT_CER.sh
-bash -x EVAL-VALIDATE-PLOT.sh
+cd tesstrain-sanPlusMinus/plot
+make traineddata MODEL_NAME=sanPlusMinus
+make MODEL_NAME=sanPlusMinus VALIDATE_LIST=validate
 ```
 
 At times, you may want to adjust the x and y axis limits on the plots to improve the visual representation. In that case you need not create the tsv files again. Just rerun the python scripts after modifying the required values.
 
 ```
-cd tesstrain-sanPlusMinus
-python PLOT_CER.py  -m sanPlusMinus
-python EVAL-VALIDATE-PLOT.py -m sanPlusMinus -v validate
+cd tesstrain-sanPlusMinus/plot
+python plot-eval-validate-cer.py -m sanPlusMinus -v validate
 ```
 
 ## Choosing the Best Model
