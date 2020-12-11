@@ -195,19 +195,3 @@ python plot-eval-validate-cer.py -m sanPlusMinus -v validate
 ## Choosing the Best Model
 
 If the training, eval and validation sets are similar in nature, the minimum CER in all cases will be for the same checkpoint. However, if the validation set is very different from training set or is just one font set from a multitude of fonts used in training then the best model to OCR images similar to the validation set would be the checkpoint with minimum CER for validation set. 
-
-### Sample Plots
-
-See the following plots which display different results for different validation sets. These are taken from a different training set for Sanskrit.
-
-#### Scanned Images
-
-![Scanned images](plot/samples/Sanskrit-scanned-plot_cer.png)
-
-#### Augmented synthetic images
-
-![Augmented synthetic images](plot/samples/Sanskrit-augmented-plot_cer.png)
-
-#### Synthetic images in Arial font
-
-![Synthetic images in Arial font](plot/samples/Sanskrit-Arial-plot_cer.png)
