@@ -2,7 +2,7 @@
 
 This uses a custom version of [tesstrain](https://github.com/tesseract-ocr/tesstrain) repo for demonstration of PlusMinus training for Sanskrit, in Devanagari script only, using [tessdata_best/san](https://github.com/tesseract-ocr/tessdata_best/blob/master/san.traineddata) as the START_MODEL. The [ground-truth data](data/sanPlusMinus-ground-truth) is included as part of this repo. 
 
-The training is currently ongoing.
+The training is currently ongoing. See [data directory](data) for the latest traineddata available.
 
 ## Characters included in groundtruth
 

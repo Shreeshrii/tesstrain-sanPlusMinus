@@ -8,3 +8,4 @@ del.sh
 plot/*.LOG
 plot/*.log
 *.log
+data/san.traineddata
