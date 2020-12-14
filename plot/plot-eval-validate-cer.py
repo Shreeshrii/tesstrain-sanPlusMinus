@@ -42,12 +42,12 @@ trainlistlinecount = len(open(trainlistfile).readlines(  ))
 evallistlinecount = len(open(evalistfile).readlines(  ))
 validatelistlinecount = len(open(validatelistfile).readlines(  ))
 
-maxxlimit=250000 # Use fixed value not auto, so that plots made anytime during training have same scale
+maxxlimit=250000
 minxlimit=-100
 maxticks=10
 ymax = y[np.argmax(y)] # Use to limit y axis to Max IterationCER
 cmax = c[np.argmax(c)] # Use to limit y axis to Max CheckpointCER
-maxCERtoDisplay=8 # Use ymax/cmax, for more detail use 20 or lower
+maxCERtoDisplay=10 # Use ymax/cmax, for more detail use 20 or lower
 minCERtoDisplay=-1 # Use -5 with ymax/cmax, -1 with 20 or lower
 
 def annot_min(boxcolor, xpos, ypos, x,y):
@@ -74,20 +74,20 @@ ax1.tick_params(axis='x', rotation=45, labelsize='small')
 ax1.locator_params(axis='x', nbins=maxticks)  # limit ticks on x-axis
 ax1.grid(True)
 
-ax1.plot(x, y, 'teal', alpha=0.5, label='CER every 100 Training Iterations', linewidth=0.5)
+ax1.plot(x, y, 'teal', alpha=0.7, label='CER every 100 Training Iterations', linewidth=0.5)
 if not c.dropna().empty: # not NaN or empty
-	ax1.scatter(x, c, c='teal', s=10, label='Checkpoints CER  from lstmtraining (list.train - ' + str(trainlistlinecount) +' lines)', alpha=0.5)
+	ax1.scatter(x, c, c='teal', s=10, label='Checkpoints CER  from lstmtraining (list.train - ' + str(trainlistlinecount) +' lines)', alpha=0.7)
 	annot_min('teal',-0,-30,x,c)
 
 if not e.dropna().empty: # not NaN or empty
-	ax1.plot(x, e, 'magenta', alpha=0.5)
-	ax1.scatter(x, e, c='magenta', s=10, label='Evaluation CER from lstmtraining (list.eval - ' + str(evallistlinecount) +' lines)', alpha=0.5)
+#	ax1.plot(x, e, 'magenta', alpha=0.7)
+	ax1.scatter(x, e, c='magenta', s=10, label='Evaluation CER from lstmtraining (list.eval - ' + str(evallistlinecount) +' lines)', alpha=0.7)
 	annot_min('magenta',-0,30,x,e)
 
 if not v.dropna().empty: # not NaN or empty
-	ax1.plot(x, v, 'maroon', alpha=0.5)
-	ax1.scatter(x, v, c='maroon', s=10, label='Validation CER from lstmeval (list.'  + args.validatelist + ' - ' + str(validatelistlinecount) +' lines)', alpha=0.5)
-	annot_min('maroon',-0,30,x,v)
+#	ax1.plot(x, v, 'maroon', alpha=0.7)
+	ax1.scatter(x, v, c='maroon', s=10, label='Validation CER from lstmeval (list.'  + args.validatelist + ' - ' + str(validatelistlinecount) +' lines)', alpha=0.7)
+	annot_min('maroon',-0,60,x,v)
 
 plt.title(label=PlotTitle)
 plt.legend(loc='upper right')
