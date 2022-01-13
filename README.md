@@ -148,11 +148,15 @@ The following table shows the [character counts](data/sanPlusMinus/all-gt-charco
 
 ## Plotting of Character Error Rates
 
-MatPlotLib can be used to visualize the CER from training iterations, checkpoints, evaluation test and validation test. 
+MatPlotLib can be used to visualize the CER from training iterations, checkpoints, evaluation test and subtrainers. 
 
-### CER from lstmtraining log and lstmeval logs: 
+### CER from lstmtraining log and lstmeval logs (OLD FORMAT - obsolete - Tesseract 4.1.x ): 
 
 ![OLD Validation CER Plot](https://github.com/Shreeshrii/tesstrain-sanPlusMinus/blob/master/data/sanPlusMinus/plot/sanPlusMinus-validate-cer.png)
+
+### CER from lstmtraining log and lstmeval logs (NEW FORMAT - with subtrainer info - Tesseract 5.0.0): 
+
+![NEW BCER Plot](https://github.com/Shreeshrii/tesstrain-sanPlusMinus/blob/master/data/sanPlusMinus/plot/sanPlusMinus-validate-cer.png)
 
 ## To run training on your system
 
