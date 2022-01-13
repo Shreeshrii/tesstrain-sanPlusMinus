@@ -150,13 +150,9 @@ The following table shows the [character counts](data/sanPlusMinus/all-gt-charco
 
 MatPlotLib can be used to visualize the CER from training iterations, checkpoints, evaluation test and validation test. 
 
-### CER from lstmtraining log: 
-
-![Sanskrit PlusMinus Training CER Plot](/plot/sanPlusMinus-plot_cer.png)
-
 ### CER from lstmtraining log and lstmeval logs: 
 
-![Sanskrit PlusMinus Training Validation CER Plot](/plot/sanPlusMinus-validate-plot_cer.png)
+![OLD Validation CER Plot](https://github.com/Shreeshrii/tesstrain-sanPlusMinus/blob/master/data/sanPlusMinus/plot/sanPlusMinus-validate-cer.png)
 
 ## To run training on your system
 
